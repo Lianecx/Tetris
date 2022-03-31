@@ -122,3 +122,5 @@ void Blocks::drawArrow(int y, int x) {
     this->oled.fillRect(y+8, x+8, 4, 4, 1);
     this->oled.display();
 }
+
+Blocks::Blocks() {}

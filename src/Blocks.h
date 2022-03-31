@@ -6,6 +6,7 @@ private:
     Adafruit_SSD1306 oled;
 public:
     Blocks(Adafruit_SSD1306 oled);
+    Blocks();
 
     void spawnSnakeR(int speed);
     void spawnSnakeL(int speed);

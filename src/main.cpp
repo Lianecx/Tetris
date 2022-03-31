@@ -5,16 +5,25 @@
 
 //CONSTRUCTORS
 Adafruit_SSD1306 oled(128, 32, &Wire, 4);
-Blocks blocks(oled);
+Blocks blocks;
 
 //VARIABLES
 const int BUTTON_PIN = 2;
 
+/*
+ * Recursively await button click on specific pin
+*/
+void awaitButton(int pin) {
+    if(digitalRead(pin) == 1) awaitButton(pin);
+}
+
 void setup() {
     randomSeed(digitalRead(A0));
+
     Serial.begin(9600);
     oled.begin();
     oled.clearDisplay();
+    blocks = Blocks(oled);
 
     pinMode(BUTTON_PIN, INPUT_PULLUP);
 
@@ -50,15 +59,12 @@ void setup() {
     delay(500);
     oled.clearDisplay();
     oled.display();
-}
 
-void awaitButton(int pin) {
-    if(digitalRead(pin) == 1) awaitButton(pin);
+    blocks.drawHookL(4, 4);
+    blocks.drawSnakeL(oled.width()-10, oled.height()-10);
 }
 
 int speed = 50;
 void loop() {
-    blocks.drawHookL(4, 4);
-    blocks.drawSnakeL(oled.width()-10, oled.height()-10);
     oled.display();
 }
